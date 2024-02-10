@@ -7,7 +7,17 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
+body {
+  background-color: #070807;
+  color: rgb(var(--foreground-rgb));
+}
 
+@layer base {
+  html {
+      background-color: #070807;
+      font-family: 'Alkatra', cursive;
+  }
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -15,7 +25,87 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+@keyframes gradientFlow3 {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.animate-gradient3{
+  background-size: 200% 100%;
+  background-image: linear-gradient(to right, #44BCFF, #FF44EC, #FF675E, #44BCFF, #FF44EC);
+  animation: gradientFlow 15s infinite linear;
+}
+@keyframes infiniteSlide4 {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: -200% 50%; /* Moves twice the width to ensure smooth transition */
+  }
+}
+.animate-gradient4 {
+  background-size: 300% 100%; /* Makes the gradient three times wider than the element */
+  background-image: linear-gradient(to right, #44BCFF, #FF44EC, #FF675E, #44BCFF, #FF44EC, #FF675E);
+  animation: infiniteSlide 30s linear infinite;
+}
+@keyframes infiniteSlide {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: -100% 50%; /* Adjusted to move smoothly */
+  }
+}
+.animate-gradient {
+  background-size: 200% 100%; /* Adjusted for a smoother transition */
+  background-image: linear-gradient(to right, #44BCFF, #FF44EC, #FF675E, #44BCFF);
+  animation: infiniteSlide 30s linear infinite;
+}
+.parallax-card {
+  background: linear-gradient(145deg, #121212, #20e62e);
+  border-radius: 0.5rem; /* Adjust to match Tailwind's rounded-lg */
+  position: relative;
+  overflow: hidden;
+}
 
+.parallax-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.1) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  z-index: 0;
+  transform: rotateZ(45deg);
+}
+
+.parallax-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(145deg, #121212, #20e62e);
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+/* Glow effect based on viewport visibility */
+.parallax-card.in-view {
+  box-shadow: 0 0 15px #20e62e;
+}
+/* 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,7 +114,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
 
 @layer utilities {
   .text-balance {
