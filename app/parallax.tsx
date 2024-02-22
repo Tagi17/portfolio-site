@@ -31,7 +31,9 @@ interface ParallaxProps {
           start: 'top bottom',
           end: 'bottom top',
           onUpdate: (self) => {
-            const y = self.progress * (window.innerWidth * speed * 0.1);
+            let y = self.progress * (window.innerWidth * speed * 0.1);
+            const maxOffset = 50; // This is an example, adjust as needed
+            y = Math.min(y, maxOffset);
             gsap.set(target.current, { y });
           },
         },

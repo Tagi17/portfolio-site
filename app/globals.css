@@ -65,7 +65,7 @@ body {
   animation: infiniteSlide 30s linear infinite;
 }
 .parallax-card {
-  background: linear-gradient(145deg, #121212, #20e62e);
+  /* background: linear-gradient(145deg, #121212, #20e62e); */
   border-radius: 0.5rem; /* Adjust to match Tailwind's rounded-lg */
   position: relative;
   overflow: hidden;
@@ -85,7 +85,7 @@ body {
     transparent 1px,
     transparent 4px
   );
-  z-index: 0;
+  z-index: -2;
   transform: rotateZ(45deg);
 }
 
@@ -98,13 +98,29 @@ body {
   left: 0;
   background: linear-gradient(145deg, #121212, #20e62e);
   mix-blend-mode: screen;
-  z-index: 1;
+  z-index: -1;
+}
+
+.circular-shader-canvas {
+  border-radius: 0.5rem; /* This is the usual value for Tailwind's 'rounded-lg' */
+  overflow: hidden; /* Ensure the corners remain rounded when the content overflows */
 }
 
 /* Glow effect based on viewport visibility */
 .parallax-card.in-view {
-  box-shadow: 0 0 15px #20e62e;
+  /* box-shadow: 0 0 15px #20e62e; */
 }
+
+
+.change{
+  
+}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 /* 
 body {
   color: rgb(var(--foreground-rgb));
@@ -115,9 +131,3 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
