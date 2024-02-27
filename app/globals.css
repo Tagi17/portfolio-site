@@ -35,7 +35,7 @@ body {
 }
 .animate-gradient3{
   background-size: 200% 100%;
-  background-image: linear-gradient(to right, #44BCFF, #FF44EC, #FF675E, #44BCFF, #FF44EC);
+  background-image: linear-gradient(to right, #44BCFF, #FF44EC, #5de729, #44BCFF, #e6b834);
   animation: gradientFlow 15s infinite linear;
 }
 @keyframes infiniteSlide4 {
@@ -61,12 +61,12 @@ body {
 }
 .animate-gradient {
   background-size: 200% 100%; /* Adjusted for a smoother transition */
-  background-image: linear-gradient(to right, #44BCFF, #FF44EC, #FF675E, #44BCFF);
+  background-image: linear-gradient(to right, #44BCFF, #FF44EC, #e6b834, #5de729);
   animation: infiniteSlide 30s linear infinite;
 }
 .parallax-card {
-  /* background: linear-gradient(145deg, #121212, #20e62e); */
-  border-radius: 0.5rem; /* Adjust to match Tailwind's rounded-lg */
+  background: linear-gradient(145deg, #121212, #20e62e);
+  border-radius: 0.5rem; 
   position: relative;
   overflow: hidden;
 }
@@ -120,7 +120,17 @@ body {
     text-wrap: balance;
   }
 }
+.white-filter {
+  filter: invert(100%);
+}
+.three-d {
+  color: #cccfca;
+  text-shadow: 0 0 8px #cccfcabf;
+}
 
+.boxy{
+  /* box-shadow: 5px 10px #121212; */
+}
 /* 
 body {
   color: rgb(var(--foreground-rgb));
