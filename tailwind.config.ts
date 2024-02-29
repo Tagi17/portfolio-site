@@ -13,6 +13,14 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      margin: {
+        '22': '5.5rem', 
+        '24': '6rem',  
+        '26': '6.5rem', 
+        '28': '7rem', 
+        '30': '7.5rem', 
+        '35': '9.5rem', 
+      },
       fontFamily: {
         'custom': ['font-sans', 'FallbackFont', 'sans-serif'],
       },

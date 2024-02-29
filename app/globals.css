@@ -59,6 +59,66 @@ body {
     background-position: -100% 50%; /* Adjusted to move smoothly */
   }
 }
+.wrapper{
+  visibility: hidden;
+  display: flex;
+}
+.accordion-section{
+  display: flex;
+}
+.cards-container{
+  /* position: relative; */
+  /* z-index: 1; */
+  height: '200vh';
+  /* display: flex; */
+}
+.card {
+  /* position: absolute; */
+  /* position: relative; */
+  /* top: 0;  */
+  /* Adjust as needed for your initial state */
+  /* will-change: transform;  */
+  /* Optimize animations */
+  /* z-index: 2; */
+  /* transform: translate(-50%, -50%); */
+}
+.section1 {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.wrapper1 {
+  width: 100%;
+  padding: 50px 200px;
+  padding-bottom: 0;
+  visibility: hidden;
+}
+.item1 {
+  width: 400px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.item1 .header1 {
+  background-color: rgb(53, 52, 52);
+  padding: 10px;
+  color: white;
+}
+.item1 .header1 h1 {
+  font-size: 24px;
+  margin: 0;
+}
+.item1 .content1 {
+  background-color: rgb(26, 26, 26);
+  overflow: hidden;
+}
+.item1 .content1 p {
+  margin: 0;
+  padding: 10px;
+  font-size: 18px;
+  color: white;
+}
 .animate-gradient {
   background-size: 200% 100%; /* Adjusted for a smoother transition */
   background-image: linear-gradient(to right, #44BCFF, #FF44EC, #e6b834, #5de729);
@@ -70,7 +130,6 @@ body {
   position: relative;
   overflow: hidden;
 }
-
 .parallax-card::before {
   content: '';
   position: absolute;
@@ -110,8 +169,6 @@ body {
 .parallax-card.in-view {
   /* box-shadow: 0 0 15px #20e62e; */
 }
-
-
 .change{
   
 }
@@ -127,17 +184,6 @@ body {
   color: #cccfca;
   text-shadow: 0 0 8px #cccfcabf;
 }
-
 .boxy{
   /* box-shadow: 5px 10px #121212; */
 }
-/* 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */

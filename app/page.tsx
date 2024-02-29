@@ -113,7 +113,7 @@ export default function Home() {
           alt="star"
         />
       </div> */}
-      <div className="flex justify-center items-center mt-20">
+      <div className="flex justify-center items-center mt-35 mb-35">
         <Image
           className="animateFlower white-filter mx-2"
           src={nflower}
@@ -137,7 +137,7 @@ export default function Home() {
         />
       </div>
       <div>
-        <AboutCards />
+        {/* <AboutCards /> */}
       </div>
       <div>
         <ProjectCard />
