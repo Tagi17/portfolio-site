@@ -2,25 +2,34 @@
 
 import "./globals.css";
 
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 
 import Image from "next/image";
 import Parallax from "./parallax";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 const ProjectCard = () => {
-  gsap.registerPlugin(ScrollTrigger);
+  const container = useRef();
 
-  useLayoutEffect(() => {
+  useGSAP(() => {
     const items = gsap.utils.toArray(".item1 .content1") as HTMLElement[];
-    const endValue = items.reduce((acc, item) => acc + item.offsetHeight, window.innerHeight);
+    const endValue = items.reduce(
+      (acc, item) => acc + item.offsetHeight,
+      window.innerHeight
+    );
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".accordion-section1",
         start: "top top",
         // end: "+=" + 100 * items.length + "%",
-        end: "1000",
+        end: "+=900",
         pin: true,
         scrub: true,
         invalidateOnRefresh: true,
@@ -37,11 +46,17 @@ const ProjectCard = () => {
     });
 
     gsap.set(".wrapper1", { autoAlpha: 1 });
+    
+    return () => {
+      tl.kill();
+    };
   });
+
+  // useLayoutEffect(() => {});
 
   return (
     <div>
-      <Parallax speed={1}>
+      {/* <Parallax speed={1}> */}
         <div className="section1 accordion-section1">
           <div className="wrapper1">
             <div className="item1">
@@ -89,7 +104,7 @@ const ProjectCard = () => {
             </div>
           </div>
         </div>
-      </Parallax>
+      {/* </Parallax> */}
     </div>
   );
 };

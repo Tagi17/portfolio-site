@@ -17,25 +17,6 @@ const AboutCards = () => {
   const projectRef = useRef(null);
   const [inView, setInView] = useState(false);
 
-  // useLayoutEffect(() =>{
-  //   let tl = gsap.timeline({
-  //     scrollTrigger: {
-  //       trigger: aboutRef.current,
-  //       start: "20px 50% ", // when the top of the trigger hits the bottom of the viewport
-  //       markers: true,
-  //       end: "bottom top", // when the bottom of the trigger hits the top of the viewport
-  //       scrub: true, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
-  //       toggleActions: "restart none none none"
-  //     }
-  //   });
-
-  //   tl.from(cardRef.current, {
-  //     y: 100, // starts 50 pixels down from the original position
-  //     autoAlpha: 0, // start with the card completely transparent
-  //     ease: 'none'
-  //   });
-
-  // }, []);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -46,24 +27,6 @@ const AboutCards = () => {
       projectRef.current,
     ];
 
-    // gsap.set(".card", { position: "absolute" });
-    // if (container instanceof HTMLElement) {
-  //   gsap.utils.toArray(".card").forEach((card, index) => {
-  //     gsap.to(".card", {
-  //       // yPercent: -100,
-  //       y: () => index * 100,
-  //       scale: 0.35,
-  //       stagger: 0.5,
-  //       scrollTrigger: {
-  //         trigger: ".card",
-  //         start: "top+=100 center",
-  //         end: () => "+=1000", //distance slowes down the animation instead of duration cuz its based on scroll
-  //         scrub: true,
-  //         // pin: true
-  //       },
-  //     });
-  //   });
-  //   // }
 
     const items = gsap.utils.toArray(".boxy .content") as HTMLElement[];
       const tl = gsap.timeline({
