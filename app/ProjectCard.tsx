@@ -19,6 +19,7 @@ const ProjectCard = () => {
 
   useGSAP(() => {
     const items = gsap.utils.toArray(".item1 .content1") as HTMLElement[];
+    
     const endValue = items.reduce(
       (acc, item) => acc + item.offsetHeight,
       window.innerHeight
@@ -27,13 +28,14 @@ const ProjectCard = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".accordion-section1",
-        start: "top top",
+        start: "top 50%",
         // end: "+=" + 100 * items.length + "%",
-        end: "+=900",
-        pin: true,
+        end: "+=600",
+        // pin: true,
         scrub: true,
         invalidateOnRefresh: true,
         markers: true,
+        // toggleAction: "restart complete reverse reset",
       },
     });
 
@@ -57,25 +59,23 @@ const ProjectCard = () => {
   return (
     <div>
       {/* <Parallax speed={1}> */}
-        <div className="section1 accordion-section1">
-          <div className="wrapper1">
-            <div className="item1">
-              <div className="header1">
-                <h1>Header One</h1>
+        <div className="section1 accordion-section1 flex justify-center h-screen">
+          <div className="wrapper1 w-full px-[200px] pb-0">
+            <div className="item1 mb-10 border-2 border-primary-300 bg-primary-500 rounded-lg shadow-xl overflow-hidden">
+              <div className="header1 bg-primary-100 text-white text-xl font-bold p-5 cursor-pointer">
+                <div className="three-d text-xl font-bold">About Me</div>
               </div>
-              <div className="content1">
+              <div className="content1 three-d p-5">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex
-                  pariatur quaerat ducimus dolorum fugit reprehenderit assumenda
-                  ipsum provident, ullam illum ad? Recusandae optio autem quo!
+                    Fuelled by a passion for crafting impactful products, my journey into programming began with Girls Who Code—an experience that sparked my curiosity in tech. It wasn&apos;t until I encountered Bitcoin that I found my true calling. The technology behind it not only captivated me but also unveiled a realm of exciting possibilities. Now, I&apos;m integrating blockchain into my projects and I leverage my design skills to enhance user experiences in innovative ways.
                 </p>
               </div>
             </div>
-            <div className="item1">
-              <div className="header1">
-                <h1>Header Two</h1>
+            <div className="item1 mb-10 border-2 border-primary-300 bg-primary-500 rounded-lg shadow-xl overflow-hidden">
+              <div className="header1 bg-primary-100 text-white text-xl font-bold p-4 cursor-pointer">
+                <h1>Projects</h1>
               </div>
-              <div className="content1">
+              <div className="content1 three-d p-4">
                 <p>
                   Tempore provident consectetur saepe minima a ratione harum
                   fugit nihil adipisci nemo at necessitatibus modi praesentium
@@ -85,11 +85,11 @@ const ProjectCard = () => {
                 </p>
               </div>
             </div>
-            <div className="item1">
-              <div className="header1">
+            <div className="item1 mb-10 border-2 border-primary-300 bg-primary-500 rounded-lg shadow-xl overflow-hidden">
+              <div className="header1 bg-primary-100 text-white text-xl font-bold p-4 cursor-pointer">
                 <h1>Header Three</h1>
               </div>
-              <div className="content1">
+              <div className="content1 p-4">
                 <p>
                   Libero assumenda iste, tempora eos facilis consectetur cum
                   esse officia magnam repudiandae mollitia itaque voluptates
