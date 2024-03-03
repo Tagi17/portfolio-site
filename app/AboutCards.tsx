@@ -77,7 +77,7 @@ const AboutCards = () => {
           {/* <Parallax speed={1} className={"self-end"}> */}
           <div className="accordion-section">
             <div className="wrapper">
-              <div className="item border-2 border-primary-300 bg-primary-500 rounded-lg shadow-xl overflow-hidden">
+              <div className="item border-2 border-primary-300 bg-primary-500 rounded-lg shadow-xl overflow-hidden ">
                 <div className="header bg-gray-700 text-white text-xl font-bold p-4 cursor-pointer">
                   Cars
                 </div>
