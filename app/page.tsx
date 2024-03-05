@@ -10,6 +10,7 @@ import CircularShader from "./CircularShader";
 import GridAnimation from "./gridThree";
 import Head from "next/head";
 import Image from "next/image";
+import Link from 'next/link';
 import NODE from "./NODE.png";
 import Navbar from "./navbar";
 import ProjectCard from "./ProjectCard";
@@ -36,7 +37,6 @@ gsap.registerPlugin(TextPlugin);
 //slowly fade in
 
 export default function Home() {
-
   
   useLayoutEffect(() => {
     const words = ["Creative Coder", "Developer", "Designer"];
@@ -85,6 +85,10 @@ export default function Home() {
         src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"
         strategy="afterInteractive"
       />
+      <Script
+        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"
+        strategy="afterInteractive"
+      />
       <div className="rounded-lg mt-20 mb-20" style={{ width: "100%" }}>
         <CircularShader containerRef={threeJSContainerRef} />
       </div>
@@ -102,17 +106,6 @@ export default function Home() {
         </div>
         {/* <div className="phrases opacity-0">Crafting User-Centric Digital Experiences</div> */}
       </div>
-      {/* <div className="flex justify-end">
-        <Image src={fourstar} height={100} width={90} alt="star" />
-        <Image src={fourstar} height={100} width={90} alt="star" />
-        <Image
-          src={fourstar}
-          className="mb-2"
-          height={100}
-          width={90}
-          alt="star"
-        />
-      </div> */}
       <div className="flex justify-center items-center mt-35 ">
         <Image
           className="animateFlower white-filter mx-2"
