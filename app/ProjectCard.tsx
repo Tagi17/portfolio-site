@@ -13,17 +13,13 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP, Draggable);
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
 const ProjectCard = () => {
   useGSAP(() => {
-    let sections = gsap.utils.toArray(".slideItem .item") as HTMLElement[];
-    let sectionsWidth = sections.map((section) => section.offsetWidth);
-    let totalSectionsWidth = sectionsWidth.reduce((acc, cur) => acc + cur, 0);
-    let amountToScroll = totalSectionsWidth - window.innerWidth;
-
     const items = gsap.utils.toArray(".item1 .content1") as HTMLElement[];
+    const sections = gsap.utils.toArray(".objects .image") as HTMLElement[];
 
     const endValue = items.reduce(
       (acc, item) => acc + item.offsetHeight,
@@ -31,12 +27,14 @@ const ProjectCard = () => {
     );
 
     const tlCards = gsap.timeline({
+      defaults: {
+        ease: "none",
+        duration: 1,
+      },
       scrollTrigger: {
         trigger: ".accordion-section1",
         start: "top 40%",
-        // end: "+=" + 100 * items.length + "%",
         end: "+=600",
-        // pin: false,
         scrub: true,
         invalidateOnRefresh: true,
         markers: true,
@@ -44,33 +42,44 @@ const ProjectCard = () => {
     });
 
     gsap.set(".item1:not(:first-child) .content1", { height: "0" });
+    gsap.set(".slideItem", { opacity: "0" });
 
     items.forEach((item1, i) => {
-      if (items[i + 1]) {
-        tlCards
-          .to(item1, { height: 0 })
-          .to(items[i + 1], { height: "auto" }, "<");
-      }
-    });
-    gsap.set(".slideItem", { height: "0", opacity: "0" });
-    
-    sections.forEach((slideItem, i) => {
-      if (sections[i + 1]) {
-        const st = gsap.timeline()
+      tlCards
+        .to(item1, { height: 0 })
+        .to(items[i + 1], { height: "auto" }, "<");
 
-        ScrollTrigger.create({
-          animation: st,
-          trigger: ".container",
-          containerAnimation: tlCards.pin,
-          scrub: 1,
-          end: 'center center',
-        });
- 
-        st.to(slideItem, { x: -100 }).to(sections[i + 1], { x: -100, height: "auto", opacity: "auto" },"<" );
-      }
+      const slideItems = document.querySelectorAll(".slideItem");
+      const totalDuration = 8;
+      const delayBetweenItems = 2;
+      slideItems.forEach((slideItem, index) => {
+        gsap.set(slideItem, { xPercent: 100 });
+        const startTime = index * (totalDuration + delayBetweenItems);
+        tlCards
+          .to(
+            slideItem,
+            {
+              xPercent: 0,
+              opacity: 1,
+              duration: totalDuration / 2,
+              ease: "power1.inOut",
+            },
+            startTime
+          )
+          .to(
+            slideItem,
+            {
+              xPercent: -100,
+              opacity: 0,
+              duration: totalDuration / 2,
+              ease: "power1.inOut",
+            },
+            `+=${totalDuration / 2}`
+          );
+      });
     });
-  
-    
+    tlCards.to({}, { duration: 0.25 });
+    tlCards.to(items, { height: 0 }, "+=0.5");
     gsap.set(".wrapper1", { autoAlpha: 1 });
 
     return () => {
@@ -92,14 +101,9 @@ const ProjectCard = () => {
               <div className="three-d text-5xl font-bold p-3">About Me</div>
             </div>
             <div className="content1 three-d text-3xl px-14 py-9">
-              Fuelled by a passion for crafting impactful products, my journey
-              into programming began with Girls Who Code—an experience that
-              sparked my curiosity in tech. It wasn&apos;t until I encountered
-              Bitcoin that I found my true calling. The technology behind it not
-              only captivated me but also unveiled a realm of exciting
-              possibilities. Now, I&apos;m integrating blockchain into my
-              projects and I leverage my design skills to enhance user
-              experiences in innovative ways.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex
+              pariatur quaerat ducimus dolorum fugit reprehenderit assumenda
+              ipsum provident, ullam illum ad? Recusandae optio autem quo!
               <div className="p-5"></div>
             </div>
           </div>
@@ -113,37 +117,16 @@ const ProjectCard = () => {
             </div>
             <div className="content1 three-d text-3xl px-14 py-9">
               <div>
-                Currently working on the smart-dashboard, churro-relay, and The
+                {" "}
+                Currently working on the smart-dashboard, Churro-relay, and The
                 League
               </div>
               <div className="p-5"></div>
               <div className="main-slide">
-                <div className="slides-container">
-                  <div className="navTitle-wrap">
-                    <div className="sections-inner">
-                      <div className=" link-1">
-                        <div className="section2 navTitle" id="button1"></div>
-                        <a href="#item1" className="section2 navTitle"></a>
-                      </div>
-                      <div className=" link-2">
-                        <div className="section2 navTitle" id="button2"></div>
-                        <a href="#item2" className="section2 navTitle"></a>
-                      </div>
-                      <div className=" link-3">
-                        <div className="section2 navTitle" id="button3"></div>
-                        <a href="#item3" className="section2 navTitle"></a>
-                      </div>
-                      <div className=" link-4">
-                        <div className="section2 navTitle" id="button4"></div>
-                        <a href="#item4" className="section2 navTitle"></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="slide">
+                <div className="slide" data-haschild="true">
                   <div className="slideItem item1" id="item1">
                     <div className="item item-1">
-                      <div className="objects">Relay Project is about</div>
+                      <div className="objects">Smart-Dashboard is about</div>
                       <div className="image">
                         <Image
                           src={defi}
@@ -156,7 +139,7 @@ const ProjectCard = () => {
                   </div>
                   <div className="slideItem item2" id="item2">
                     <div className="item item-2">
-                      <div className="objects">Relay Project is about</div>
+                      <div className="objects">Churro-Relay is about</div>
                       <div className="image">
                         <Image
                           src={defi}
@@ -169,7 +152,7 @@ const ProjectCard = () => {
                   </div>
                   <div className="slideItem item3" id="item3">
                     <div className="item item-3">
-                      <div className="objects">Relay Project is about</div>
+                      <div className="objects">The League is about</div>
                       <div className="image">
                         <Image
                           src={defi}
@@ -196,6 +179,28 @@ const ProjectCard = () => {
                 </div>
                 <div className="p-1"></div>
               </div>
+              <div className="slides-container">
+                <div className="navTitle-wrap">
+                  <div className="sections-inner">
+                    <div className=" link-1">
+                      <div className="section2 navTitle" id="button1"></div>
+                      <a href="#item1" className="section2 navTitle"></a>
+                    </div>
+                    <div className=" link-2">
+                      <div className="section2 navTitle" id="button2"></div>
+                      <a href="#item2" className="section2 navTitle"></a>
+                    </div>
+                    <div className=" link-3">
+                      <div className="section2 navTitle" id="button3"></div>
+                      <a href="#item3" className="section2 navTitle"></a>
+                    </div>
+                    <div className=" link-4">
+                      <div className="section2 navTitle" id="button4"></div>
+                      <a href="#item4" className="section2 navTitle"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -213,9 +218,7 @@ const ProjectCard = () => {
                 eveniet perferendis saepe hic aliquid veritatis ipsa similique
                 voluptatibus nisi harum. Voluptates blanditiis nam, aliquid
                 distinctio repellendus molestiae numquam doloremque totam
-                impedit. Recusandae laborum debitis quidem assumenda laudantium
-                perferendis reprehenderit repellendus quos, labore ratione,
-                laboriosam autem!
+                impedit.
               </div>
               <div className="p-5"></div>
             </div>
