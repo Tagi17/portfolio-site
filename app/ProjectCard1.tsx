@@ -17,7 +17,29 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
-const ProjectCard = () => {
+const slides = [
+  {
+    id: 'item1',
+    title: 'Smart-Dashboard',
+    description: 'Smart-Dashboard is a web application designed to provide users with a comprehensive dashboard for managing their crypto assets and interacting with the blockchain.',
+    imageSrc: defi,
+  },
+  {
+    id: 'item2',
+    title: 'Churro-Relay',
+    description: 'Churro-Relay is about...',
+    imageSrc: defi,
+  },
+  {
+    id: 'item2',
+    title: 'The-League',
+    description: 'The League is about...',
+    imageSrc: defi,
+  },
+];
+
+
+const ProjectCard1 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   useGSAP(() => {
@@ -79,7 +101,7 @@ const ProjectCard = () => {
               opacity: 0,
               duration: totalDuration / 2,
               ease: "power1.inOut",
-              stagger: staggerDelay / 2, 
+              stagger: staggerDelay / 2, // Time between the start of each item's exit animation
             }, "+=2");
           
         
@@ -136,83 +158,19 @@ const ProjectCard = () => {
               <div className="p-5"></div>
               <div className="main-slide relative overflow-hidden ">
                 <div className="slide" data-haschild="true">
-                  <div className="slideItem item1 absolute max-h-96" id="item1">
-                    <div className="item item-1">
-                      <div className="objects">Smart-Dashboard is a web application designed to provide users with a comprehensive dashboard for managing their crypto assets and interacting with the blockchain. This project aims to help users monitor their wallet&aptos;s content, visualize their crypto portfolio, and access DeFi applications seamlessly</div>
+                {slides.map((slide, index) => (
+                  <div key={slide.id} className={`slideItem absolute top-0 left-0 w-full h-full transition-opacity duration-300 ease-linear ${currentIndex === index ? 'opacity-100' : 'opacity-0'}`} style={{ visibility: currentIndex === index ? 'visible' : 'hidden' }}>
+                    <div className="item">
+                      <div className="objects">{slide.description}</div>
                       <div className="image">
-                        <Image
-                          src={defi}
-                          height={50}
-                          width={50}
-                          alt={"image"}
-                        />
+                        <Image src={slide.imageSrc} height={50} width={50} alt={slide.title} />
                       </div>
                     </div>
                   </div>
-                  <div className="slideItem item2 absolute " id="item2">
-                    <div className="item item-2">
-                      <div className="objects">Churro-Relay is about</div>
-                      <div className="image">
-                        <Image
-                          src={defi}
-                          height={50}
-                          width={50}
-                          alt={"image"}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="slideItem item3 absolute top-0 left-0 w-full h-full" id="item3">
-                    <div className="item item-3">
-                      <div className="objects">The League is about</div>
-                      <div className="image">
-                        <Image
-                          src={defi}
-                          height={50}
-                          width={50}
-                          alt={"image"}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="slideItem item4 absolute top-0 left-0 w-full h-full" id="item4">
-                    <div className="item item-4">
-                      <div className="objects">Relay Project is about</div>
-                      <div className="image">
-                        <Image
-                          src={defi}
-                          height={50}
-                          width={50}
-                          alt={"image"}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                ))}
                 </div>
                 <div className="p-1"></div>
               </div>
-              {/* <div className="slides-container">
-                <div className="navTitle-wrap">
-                  <div className="sections-inner">
-                    <div className=" link-1">
-                      <div className="section2 navTitle" id="button1"></div>
-                      <a href="#item1" className="section2 navTitle"></a>
-                    </div>
-                    <div className=" link-2">
-                      <div className="section2 navTitle" id="button2"></div>
-                      <a href="#item2" className="section2 navTitle"></a>
-                    </div>
-                    <div className=" link-3">
-                      <div className="section2 navTitle" id="button3"></div>
-                      <a href="#item3" className="section2 navTitle"></a>
-                    </div>
-                    <div className=" link-4">
-                      <div className="section2 navTitle" id="button4"></div>
-                      <a href="#item4" className="section2 navTitle"></a>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
           <div
@@ -234,4 +192,4 @@ const ProjectCard = () => {
   );
 };
 
-export default ProjectCard;
+export default ProjectCard1;

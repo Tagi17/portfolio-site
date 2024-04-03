@@ -11,9 +11,12 @@ import GridAnimation from "./gridThree";
 import Head from "next/head";
 import Image from "next/image";
 import Link from 'next/link';
+import Links from './Links';
+import Links1 from './Links1';
 import NODE from "./NODE.png";
 import Navbar from "./navbar";
 import ProjectCard from "./ProjectCard";
+import ProjectCard1 from "./ProjectCard1";
 import Script from "next/script";
 import ShaderAnimate from "./ShaderAnimate";
 import ShaderCode from "./ShaderCode";
@@ -29,6 +32,7 @@ import fourstar from "./fourstar.png";
 import gflower from "./gflower.png";
 import gsap from "gsap";
 import nflower from "./nflower.png";
+import { useGSAP } from "@gsap/react";
 import whiteStar from "./whiteStar.png";
 import white_star from "./white_star.png";
 
@@ -38,7 +42,7 @@ gsap.registerPlugin(TextPlugin);
 
 export default function Home() {
   
-  useLayoutEffect(() => {
+  useGSAP(() => {
     const words = ["Creative Coder", "Developer", "Designer"];
 
     let cursor = gsap.to(".cursor", {
@@ -63,8 +67,6 @@ export default function Home() {
         { scale: 1, autoAlpha: 1, duration: 1, ease: "power3.out" }
       );
 
-   
-
     let masterTl = gsap.timeline({ repeat: -1 });
     words.forEach((words) => {
       let tl = gsap.timeline({ repeat: 1, yoyo: true, repeatDelay: 1 }); //for each of these words, making them have their own timeline and then pass into master timeline
@@ -72,7 +74,28 @@ export default function Home() {
       masterTl.add(tl); //now pass in child timeline to master timeline
     });
   });
+  const flowerTL = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".flower",
+      start: "20",
 
+    }
+  })
+  const trackers = document.querySelectorAll(".tracker");
+  gsap.set(trackers, {  opacity: 0  });
+  const boxes = document.querySelectorAll(".box");
+  boxes.forEach((box, index) => {
+    flowerTL.to(
+      box, {
+        opacity: 1,
+    });
+    box.addEventListener('mouseenter', () => {
+      gsap.to(trackers[index], { opacity: 1, duration: 0.3 });
+    });
+    box.addEventListener('mouseleave', () => {
+      gsap.to(trackers[index], { opacity: 0, duration: 0.3 });
+    });
+    });
   // const threeJSContainerRef = useRef<HTMLDivElement>(null);
   const threeJSContainerRef = useRef(null);
   return (
@@ -106,34 +129,64 @@ export default function Home() {
         </div>
         {/* <div className="phrases opacity-0">Crafting User-Centric Digital Experiences</div> */}
       </div>
-      <div className="flex justify-center items-center mt-35 ">
-        <Image
-          className="animateFlower white-filter mx-2"
+      <div className="flex justify-center items-center mt-35 flower">
+      {[1, 2, 3].map((_, index) => (
+        <div 
+          key={index}
+          className="animateFlower white-filter mx-2 box"
+          onMouseEnter={() => manageMouseEnter(index)}
+          onMouseLeave={() => manageMouseLeave(index)}
+        >
+          <Image
+            src={`/path/to/flower/image${index + 1}.jpg`} // Assuming dynamic src
+            height={100}
+            width={70}
+            alt="flower"
+          />
+        </div>
+      ))}
+        {/* <Image
+          className="animateFlower white-filter mx-2 box"
           src={nflower}
           height={100}
           width={70}
           alt="star"
         />
         <Image
-          className="animateFlower white-filter mx-2"
+          className="animateFlower white-filter mx- box2"
           src={nflower}
           height={100}
           width={70}
           alt="star"
         />
         <Image
-          className="animateFlower white-filter mx-2"
+          className="animateFlower white-filter mx-2 box"
           src={nflower}
           height={100}
           width={70}
           alt="star"
-        />
+        /> */}
+      </div>
+      <div className="border-2 border-secondary-500 bg-primary-500 rounded-lg shadow-xl overflow-hidden w-1/4 tracker">
+        <div className=" text-white text-2xl three-d py-3 px-3">
+          Bitcoin price is 
+        </div>
+      </div>
+      <div className="border-2 border-secondary-500 bg-primary-500 rounded-lg shadow-xl overflow-hidden w-1/4 tracker">
+        <div className=" text-white text-2xl three-d py-3 px-3">
+          Eth price is 
+        </div>
+      </div>
+      <div className="border-2 border-secondary-500 bg-primary-500 rounded-lg shadow-xl overflow-hidden w-1/4 tracker">
+        <div className=" text-white text-2xl three-d py-3 px-3">
+          Matic price is 
+        </div>
       </div>
       <div>
-        {/* <AboutCards /> */}
-      </div>
-      <div>
-        <ProjectCard />
+        {/* <ProjectCard /> */}
+        {/* <ProjectCard1 /> */}
+        <Links/>
+        {/* <Links1/> */}
       </div>
     </div>
   );
