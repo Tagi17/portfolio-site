@@ -2,22 +2,30 @@
 
 import "./globals.css";
 
-import React, { use, useEffect, useLayoutEffect, useRef } from "react";
+import React, {
+  use,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import AboutCards from "./AboutCards";
 import Animationgrid from "./animateGrid";
 import CircularShader from "./CircularShader";
+import CoinApi from "./CoinApi";
 import GridAnimation from "./gridThree";
 import Head from "next/head";
 import Image from "next/image";
-import Link from 'next/link';
-import Links from './Links';
-import Links1 from './Links1';
+import Link from "next/link";
+import Links from "./Links";
+import Links1 from "./Links1";
 import NODE from "./NODE.png";
 import Navbar from "./navbar";
 import ProjectCard from "./ProjectCard";
 import ProjectCard1 from "./ProjectCard1";
 import Script from "next/script";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ShaderAnimate from "./ShaderAnimate";
 import ShaderCode from "./ShaderCode";
 import SphereAnimation from "./SphereGeometry";
@@ -38,10 +46,13 @@ import white_star from "./white_star.png";
 
 gsap.registerPlugin(TextPlugin);
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
+
 //slowly fade in
 
 export default function Home() {
-  
   useGSAP(() => {
     const words = ["Creative Coder", "Developer", "Designer"];
 
@@ -70,33 +81,128 @@ export default function Home() {
     let masterTl = gsap.timeline({ repeat: -1 });
     words.forEach((words) => {
       let tl = gsap.timeline({ repeat: 1, yoyo: true, repeatDelay: 1 }); //for each of these words, making them have their own timeline and then pass into master timeline
-      tl.to(".text", { duration: 1, text: words });
-      masterTl.add(tl); //now pass in child timeline to master timeline
+      if (document.querySelector(".text")) {
+        tl.to(".text", { duration: 1, text: words });
+        masterTl.add(tl); //now pass in child timeline to master timeline
+      }
     });
   });
   const flowerTL = gsap.timeline({
     scrollTrigger: {
       trigger: ".flower",
       start: "20",
+    },
+  });
+  const [activeTrackerIndex, setActiveTrackerIndex] = useState<number | null>(
+    null
+  );
+  const [trackerVisibility, setTrackerVisibility] = useState<boolean>(false);
 
+  const handleMouseEnter = (index: number) => {
+    setActiveTrackerIndex(index);
+    setTrackerVisibility(true); // Correctly shows the tracker on hover.
+  };
+  
+  const handleMouseLeave = () => {
+    // Use a timeout to give the user a chance to move to the tracker.
+    setTimeout(() => {
+      // Check if the active tracker index is still the same as the one being hovered over before hiding.
+      // This prevents hiding the tracker if quickly moving between images.
+      if (trackerVisibility && activeTrackerIndex !== null) {
+        setActiveTrackerIndex(null);
+        setTrackerVisibility(false);
+      }
+    }, 500); // Delay before hiding the tracker to allow moving to it.
+  };
+  
+  const handleClick = (index: number) => {
+    // If the tracker is already visible and clicked again, it should toggle visibility.
+    if (activeTrackerIndex === index && trackerVisibility) {
+      setTrackerVisibility(false);
+      setActiveTrackerIndex(null); // Optionally reset, depending on desired behavior when toggling off.
+    } else {
+      setActiveTrackerIndex(index);
+      setTrackerVisibility(true); // Show and "lock" the tracker on click.
     }
-  })
+  };
+  
+  const handleTrackerMouseLeave = () => {
+    // Delay the hiding when leaving the tracker to avoid immediate disappearance.
+    setTimeout(() => {
+      setTrackerVisibility(false);
+      setActiveTrackerIndex(null);
+    }, 500);
+  };
+  
+  interface Tracker {
+    type: string;
+    text?: string;
+    component?: JSX.Element;
+  }
+
+  const renderTrackerContent = (tracker: Tracker) => {
+    if (tracker.type === "text" && tracker.text) {
+      // Directly render content based on the exact text
+      let content;
+      if (tracker.text.trim() === "https://github.com/Tagi17") {
+        // For GitHub link
+        content = (
+          <span>My GitHub:&nbsp;
+            <a href="https://github.com/Tagi17" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
+              Tagi17
+            </a>
+          </span>
+        );
+      } else if (tracker.text.includes("Medium")) {
+        // For Medium link, ensuring the text includes 'Medium'
+        content = (
+          <span>Read my articles here on&nbsp;
+            <a href="https://medium.com/@inzhagey" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
+              Medium
+            </a>
+          </span>
+        );
+      } else {
+        // Default text rendering
+        content = <span>{tracker.text}</span>;
+      }
+  
+      return <div className="text-white text-2xl three-d py-3 px-3">{content}</div>;
+    } else if (tracker.type === "component" && tracker.component) {
+      return tracker.component;
+    } else {
+      return null; // Or some fallback JSX if necessary
+    }
+  };
+  const images = [
+    {
+      src: "/path/to/flower/image.jpg",
+      tracker: { type: "component", component: <CoinApi /> },
+    },
+    {
+      src: "/path/to/flower/image.jpg",
+      tracker: { type: "text", text: "https://github.com/Tagi17 " },
+    },
+    {
+      src: "/path/to/flower/image.jpg",
+      tracker: { type: "text", text: "Read my articles here on Medium" },
+    },
+  ];
+
   const trackers = document.querySelectorAll(".tracker");
-  gsap.set(trackers, {  opacity: 0  });
+  gsap.set(trackers, { opacity: 0 });
   const boxes = document.querySelectorAll(".box");
   boxes.forEach((box, index) => {
-    flowerTL.to(
-      box, {
-        opacity: 1,
+    flowerTL.to(box, {
+      opacity: 1,
     });
-    box.addEventListener('mouseenter', () => {
+    box.addEventListener("mouseenter", () => {
       gsap.to(trackers[index], { opacity: 1, duration: 0.3 });
     });
-    box.addEventListener('mouseleave', () => {
+    box.addEventListener("mouseleave", () => {
       gsap.to(trackers[index], { opacity: 0, duration: 0.3 });
     });
-    });
-  // const threeJSContainerRef = useRef<HTMLDivElement>(null);
+  });
   const threeJSContainerRef = useRef(null);
   return (
     <div className="mx-auto w-7/12 my-6">
@@ -130,62 +236,37 @@ export default function Home() {
         {/* <div className="phrases opacity-0">Crafting User-Centric Digital Experiences</div> */}
       </div>
       <div className="flex justify-center items-center mt-35 flower">
-      {[1, 2, 3].map((_, index) => (
-        <div 
-          key={index}
-          className="animateFlower white-filter mx-2 box"
-          onMouseEnter={() => manageMouseEnter(index)}
-          onMouseLeave={() => manageMouseLeave(index)}
-        >
-          <Image
-            src={`/path/to/flower/image${index + 1}.jpg`} // Assuming dynamic src
-            height={100}
-            width={70}
-            alt="flower"
-          />
-        </div>
-      ))}
-        {/* <Image
-          className="animateFlower white-filter mx-2 box"
-          src={nflower}
-          height={100}
-          width={70}
-          alt="star"
-        />
-        <Image
-          className="animateFlower white-filter mx- box2"
-          src={nflower}
-          height={100}
-          width={70}
-          alt="star"
-        />
-        <Image
-          className="animateFlower white-filter mx-2 box"
-          src={nflower}
-          height={100}
-          width={70}
-          alt="star"
-        /> */}
+        {images.map((image, index) => {
+          return (
+            <div key={index} className="relative">
+              <Image
+                className="animateFlower white-filter mx-2 box"
+                src={nflower}
+                height={100}
+                width={70}
+                alt="flower"
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
+                onClick={() => handleClick(index)}
+              />
+              {activeTrackerIndex === index && (
+                <div className="absolute border-2 border-secondary-500 bg-primary-500 rounded-lg shadow-xl overflow-hidden tracker w-80 mt-5 pt-2 px-5 pr-2 mr-5" onMouseLeave={handleTrackerMouseLeave}>
+                  <div className="text-white text-2xl three-d py-3 px-3">
+
+                    {renderTrackerContent(image.tracker)}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+        
       </div>
-      <div className="border-2 border-secondary-500 bg-primary-500 rounded-lg shadow-xl overflow-hidden w-1/4 tracker">
-        <div className=" text-white text-2xl three-d py-3 px-3">
-          Bitcoin price is 
-        </div>
-      </div>
-      <div className="border-2 border-secondary-500 bg-primary-500 rounded-lg shadow-xl overflow-hidden w-1/4 tracker">
-        <div className=" text-white text-2xl three-d py-3 px-3">
-          Eth price is 
-        </div>
-      </div>
-      <div className="border-2 border-secondary-500 bg-primary-500 rounded-lg shadow-xl overflow-hidden w-1/4 tracker">
-        <div className=" text-white text-2xl three-d py-3 px-3">
-          Matic price is 
-        </div>
-      </div>
+
       <div>
         {/* <ProjectCard /> */}
         {/* <ProjectCard1 /> */}
-        <Links/>
+        <Links />
         {/* <Links1/> */}
       </div>
     </div>
