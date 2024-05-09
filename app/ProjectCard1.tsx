@@ -43,12 +43,12 @@ const ProjectCard1 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   useGSAP(() => {
-    const items = gsap.utils.toArray(".item1 .content1") as HTMLElement[];
+    const items = document.querySelector(".item1");
 
-    const endValue = items.reduce(
-      (acc, item) => acc + item.offsetHeight,
-      window.innerHeight
-    );
+    // const endValue = items.reduce(
+    //   (acc, item) => acc + item.offsetHeight,
+    //   window.innerHeight
+    // );
 
     const tlCards = gsap.timeline({
       defaults: {
@@ -65,48 +65,7 @@ const ProjectCard1 = () => {
         markers: true,
       },
     });
-
-    gsap.set(".item1:not(:first-child) .content1", { height: "0" });
-    gsap.set(".slideItem", { opacity: "0" });
-
-    items.forEach((item1, i) => {
-      tlCards
-        .to(item1, { height: 0 })
-        .to(items[i + 1], { height: "auto" }, "<");
-
-      const slideItems = document.querySelectorAll(".slideItem");
-      const totalDuration = 16;
-      const delayBetweenItems = 4;
-      const staggerDelay = 4;
-      slideItems.forEach((slideItem, index) => {
-        gsap.set(slideItem, { xPercent: 10, opacity: 0  });
-        // const startTime = index * (totalDuration + delayBetweenItems);
-        tlCards
-          .to(
-            slideItem,
-            {
-              xPercent: 0,
-              opacity: 1,
-              duration: totalDuration / 2,
-              ease: "power1.inOut",
-              stagger: staggerDelay / 2,
-            }, "+=2"
-          
-          )
-          .to(
-            slideItem,
-            {
-              delay: index * delayBetweenItems,
-              xPercent: -100,
-              opacity: 0,
-              duration: totalDuration / 2,
-              ease: "power1.inOut",
-              stagger: staggerDelay / 2, // Time between the start of each item's exit animation
-            }, "+=2");
-          
-        
-      });
-    });
+    gsap.set(".content1", { opacity: 0, height: 0 });
     gsap.set(".wrapper1", { autoAlpha: 1 });
 
     return () => {
@@ -117,16 +76,14 @@ const ProjectCard1 = () => {
   return (
     <div>
       <div className="section1 accordion-section1 flex justify-center items-center min-h-screen h-screen">
-        <div className="wrapper1 w-full px-4 md:px-20 max-w-screen-xl mx-auto">
           <div
             className="item1 mb-12 border-2 border-primary-300 bg-primary-500 rounded-lg shadow-xl overflow-hidden"
             id="about-me"
             data-label="label0"
           >
-            <div className="header1 bg-primary-600 text-white text-xl font-bold p-5 cursor-pointer">
-              <div className="three-d text-5xl font-bold p-3">About Me</div>
+              <div className="three-d text-5xl font-bold p-3 ">About Me</div>
             </div>
-            <div className="content1 three-d text-3xl px-14 py-10">
+            <div className="content1 three-d text-3xl px-14 py-20">
               Fuelled by a passion for crafting impactful products, my journey
               into programming began with Girls Who Code—a pivotal experience
               that into programming began with Girls Who Code—an experience that
@@ -141,54 +98,7 @@ const ProjectCard1 = () => {
               <div className="p-6"></div>
             </div>
           </div>
-          <div
-            className="item1 container mb-12 border-2 border-primary-300 bg-primary-500 rounded-lg shadow-xl overflow-hidden"
-            id="projects"
-            data-label="label1"
-          >
-            <div className="header1 bg-primary-600 text-white text-xl font-bold p-4 cursor-pointer">
-              <div className="three-d text-5xl font-bold p-3">Projects</div>
-            </div>
-            <div className="content1 three-d text-3xl px-14 py-9">
-              <div>
-                {" "}
-                Currently working on the smart-dashboard, Churro-relay, and The
-                League
-              </div>
-              <div className="p-5"></div>
-              <div className="main-slide relative overflow-hidden ">
-                <div className="slide" data-haschild="true">
-                {slides.map((slide, index) => (
-                  <div key={slide.id} className={`slideItem absolute top-0 left-0 w-full h-full transition-opacity duration-300 ease-linear ${currentIndex === index ? 'opacity-100' : 'opacity-0'}`} style={{ visibility: currentIndex === index ? 'visible' : 'hidden' }}>
-                    <div className="item">
-                      <div className="objects">{slide.description}</div>
-                      <div className="image">
-                        <Image src={slide.imageSrc} height={50} width={50} alt={slide.title} />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                </div>
-                <div className="p-1"></div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="item1 mb-12 border-2 border-primary-300 bg-primary-500 rounded-lg shadow-xl overflow-hidden"
-            id="contact"
-            data-label="label2"
-          >
-            <div className="header1 bg-primary-600 text-white text-xl font-bold p-4 cursor-pointer">
-              <div className="three-d text-5xl font-bold p-3">Boop</div>
-            </div>
-            <div className="content1 three-d text-3xl px-14 py-9">
-              <div>Contact Me Here:</div>
-              <div className="p-5"></div>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
   );
 };
 

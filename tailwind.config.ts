@@ -21,6 +21,16 @@ const config: Config = {
         '30': '7.5rem', 
         '35': '9.5rem', 
       },
+      padding: {
+        '22': '5.5rem', 
+        '24': '6rem',  
+        '26': '6.5rem', 
+        '28': '7rem', 
+        '30': '7.5rem', 
+        '35': '9.5rem', 
+        '37': '13rem', 
+        '40': '15rem', 
+      },
       fontFamily: {
         'custom': ['font-sans', 'FallbackFont', 'sans-serif'],
       },

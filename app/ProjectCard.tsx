@@ -69,7 +69,6 @@ const ProjectCard = () => {
               ease: "power1.inOut",
               stagger: staggerDelay / 2,
             }, "+=2"
-          
           )
           .to(
             slideItem,
@@ -80,9 +79,7 @@ const ProjectCard = () => {
               duration: totalDuration / 2,
               ease: "power1.inOut",
               stagger: staggerDelay / 2, 
-            }, "+=2");
-          
-        
+            }, "+=2"); 
       });
     });
     gsap.set(".wrapper1", { autoAlpha: 1 });

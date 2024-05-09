@@ -33,7 +33,7 @@ export default function Navbar() {
             About
           </Link>
           <Link href="#projects" className="text-white hover:text-blue-500 text-base">
-            Portfolio
+            Projects
           </Link>
           <Link href="#contact" className="text-white hover:text-blue-500 text-base pr-6">
             Contact

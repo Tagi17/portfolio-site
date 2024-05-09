@@ -14,6 +14,7 @@ import AboutCards from "./AboutCards";
 import Animationgrid from "./animateGrid";
 import CircularShader from "./CircularShader";
 import CoinApi from "./CoinApi";
+import Contact from "./Contact";
 import GridAnimation from "./gridThree";
 import Head from "next/head";
 import Image from "next/image";
@@ -267,6 +268,7 @@ export default function Home() {
         {/* <ProjectCard /> */}
         {/* <ProjectCard1 /> */}
         <Links />
+        <Contact/>
         {/* <Links1/> */}
       </div>
     </div>
