@@ -1,4 +1,5 @@
-import React from 'react'
+// import React from 'react'
+
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -36,40 +37,6 @@ export default function Links() {
     });
   });
 });
-
-    
-    // const items = gsap.utils.toArray(".item1 .content1") as HTMLElement[];
-    // const content1 = document.querySelector(".content1");
-
-    // const tlCards = gsap.timeline({
-    //   defaults: {
-    //     ease: "power1.out",
-    //     duration: 1,
-    //   },
-    //   scrollTrigger: {
-    //     trigger: ".container",
-    //     start: "top top",
-    //     end: "+=700",
-    //     // scrub: true,
-    //     // pin: true,
-    //     scrub: 1,
-    //     invalidateOnRefresh: true,
-    //     markers: true,
-    //   },
-    // });
-    // // gsap.set(".item1:not(:first-child) .content1", { height: 0 });
-    // gsap.set(".content1", { opacity: 0,  })
-    // // tlCards.to(content1, {height:1, opacity: 1})
-    // // tlCards.to(items, {height:1, opacity: 1})
-    // items.forEach((item, i) => {
-    //   tlCards
-    //     // .to(item, { height: 0 }).to(items[i + 1], { height: "auto"},"<").to(content1, {});
-    //     // .to(content1, { height: 1, opacity: 1 }).to(items[i + 1], { height: "auto", opacity: 1},"<");
-    //     .to(items[i + 1], { height: "auto", opacity: 1},"<");
-    // });
-    // return () => {
-    //   tlCards.kill();
-    // };
 
   return (
     <div>
