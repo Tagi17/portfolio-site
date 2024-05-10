@@ -1,3 +1,5 @@
+'use client'
+
 import "./globals.css";
 
 import * as THREE from "three";
@@ -9,8 +11,9 @@ type ThreeJSAnimationProps = {
 };
 
 const CircularShader: React.FC<ThreeJSAnimationProps> = ({ containerRef }) => {
-  useEffect(() => {
-    if (!containerRef.current) return;
+    useEffect(() => {
+    const currentContainer = containerRef.current;
+    if (!currentContainer) return;
 
     const clock = new THREE.Clock();
     const camera = new THREE.Camera();
@@ -82,7 +85,7 @@ const CircularShader: React.FC<ThreeJSAnimationProps> = ({ containerRef }) => {
       }
     };
 
-    containerRef.current.appendChild(renderer.domElement);
+    currentContainer.appendChild(renderer.domElement);
     setRendererSize(); // Initial set
 
     window.addEventListener("resize", setRendererSize);
@@ -101,7 +104,7 @@ const CircularShader: React.FC<ThreeJSAnimationProps> = ({ containerRef }) => {
 
     return () => {
       window.removeEventListener("resize", setRendererSize);
-      containerRef.current?.removeChild(renderer.domElement);
+      currentContainer?.removeChild(renderer.domElement);
     };
   }, [containerRef]);
 

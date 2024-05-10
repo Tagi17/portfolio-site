@@ -10,7 +10,6 @@ import React, {
   useState,
 } from "react";
 
-import AboutCards from "./AboutCards";
 import Animationgrid from "./animateGrid";
 import CircularShader from "./CircularShader";
 import CoinApi from "./CoinApi";
@@ -29,11 +28,8 @@ import Script from "next/script";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ShaderAnimate from "./ShaderAnimate";
 import ShaderCode from "./ShaderCode";
-import SphereAnimation from "./SphereGeometry";
 import TextPlugin from "gsap/TextPlugin";
 import ThreeAnimation from "./threeAnimation";
-import ThreeJSAnimation from "./threejs";
-import TorusAnimation from "./animate";
 import animateStar from "./animateStar.png";
 import clear from "./clear.png";
 import flower from "./flower.png";
