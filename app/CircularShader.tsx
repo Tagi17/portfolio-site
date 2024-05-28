@@ -108,7 +108,7 @@ const CircularShader: React.FC<ThreeJSAnimationProps> = ({ containerRef }) => {
     };
   }, [containerRef]);
 
-  return <div ref={containerRef} className="rounded-lg overflow-hidden"  style={{ width: "100%", height: "30vh" }} />;
+  return <div ref={containerRef} className="rounded-lg overflow-hidden "  style={{ width: "100%", height: "30vh" }}/>;
 };
 
 export default CircularShader;
