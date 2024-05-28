@@ -25,12 +25,6 @@ import { useGSAP } from "@gsap/react";
 
 const CircularShader = dynamic(() => import('./CircularShader'), { ssr: false });
 
-gsap.registerPlugin(TextPlugin);
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
-
 export default function Home() {
   return (
       <div className="mx-auto w-7/12 my-6">
