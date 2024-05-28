@@ -1,5 +1,3 @@
-'use client';
-
 import "./globals.css";
 
 import React, {
@@ -16,14 +14,6 @@ import HomeAnimations from "./HomeAnimations";
 import Image from "next/image";
 import Links from "./Links";
 import Script from "next/script";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import TextPlugin from "gsap/TextPlugin";
-import dynamic from "next/dynamic";
-import gsap from "gsap";
-import nflower from "./nflower.png";
-import { useGSAP } from "@gsap/react";
-
-const CircularShader = dynamic(() => import('./CircularShader'), { ssr: false });
 
 export default function Home() {
   return (
